@@ -35,6 +35,18 @@ let hours = futureDate.getHours();
 let minutes = futureDate.getMinutes();
 let seconds = futureDate.getSeconds();
 
+//* Time format
+function format() {
+	// Agrega un 0 antes del número (hours) si éste tiene sólo 1 dígito
+	String(hours).length === 1 ? (hours = `0${hours}`) : hours;
+
+	// Agrega un 0 antes del número (minutes) si éste tiene sólo 1 dígito
+	String(minutes).length === 1 ? (minutes = `0${minutes}`) : minutes;
+
+	// Agrega un 0 antes del número (seconds) si éste tiene sólo 1 dígito
+	String(seconds).length === 1 ? (seconds = `0${seconds}`) : seconds;
+}
+
 //* Future time in ms
 
 function getRemainingTime() {
