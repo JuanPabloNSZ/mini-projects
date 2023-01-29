@@ -76,8 +76,10 @@ const menu = [
 const sectionCenter = document.querySelector('.section-center');
 
 // Agrega un listener que lanza una función cuando carga la página
-window.addEventListener('DOMContentLoaded', function () {
-	let displayMenu = menu.map(function (item) {
+window.addEventListener('DOMContentLoaded', displayMenuItems(menu));
+
+function displayMenuItems(menuItems) {
+	let displayMenu = menuItems.map(function (item) {
 		console.log(item.title);
 		return `<article class="menu-item">
                     <img src="${item.img}" class="photo" alt="${item.title}" />
@@ -93,4 +95,4 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	displayMenu = displayMenu.join('');
 	sectionCenter.innerHTML = displayMenu;
-});
+}
