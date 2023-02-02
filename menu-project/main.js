@@ -74,13 +74,27 @@ const menu = [
 ];
 
 const sectionCenter = document.querySelector('.section-center');
+const filterBtns = document.querySelectorAll('.filter-btn');
 
 // Agrega un listener que lanza una función cuando carga la página
 window.addEventListener('DOMContentLoaded', displayMenuItems(menu));
 
+// Filtra elementos
+filterBtns.forEach(function (button) {
+	button.addEventListener('click', function (e) {
+		const category = e.currentTarget.dataset.id;
+		const filterCategory = menu.filter((x) => x.category === category);
+		displayMenuItems(filterCategory);
+		if (category === 'all') {
+			displayMenuItems(menu);
+		}
+	});
+});
+
+// Muestra los items en la página
 function displayMenuItems(menuItems) {
 	let displayMenu = menuItems.map(function (item) {
-		console.log(item.title);
+		// console.log(item.title);
 		return `<article class="menu-item">
                     <img src="${item.img}" class="photo" alt="${item.title}" />
                     <div class="item-info">
