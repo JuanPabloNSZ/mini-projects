@@ -71,24 +71,23 @@ const menu = [
 		img: './images/item-9.jpeg',
 		desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
 	},
+	{
+		id: 10,
+		title: 'steak dinner',
+		category: 'dinner',
+		price: 39.99,
+		img: './images/item-10.jpeg',
+		desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+	},
 ];
 
 const sectionCenter = document.querySelector('.section-center');
-const filterBtns = document.querySelectorAll('.filter-btn');
+const buttonContainer = document.querySelector('.btn-container');
 
 // Agrega un listener que lanza una función cuando carga la página
-window.addEventListener('DOMContentLoaded', displayMenuItems(menu));
-
-// Filtra elementos
-filterBtns.forEach(function (button) {
-	button.addEventListener('click', function (e) {
-		const category = e.currentTarget.dataset.id;
-		const filterCategory = menu.filter((x) => x.category === category);
-		displayMenuItems(filterCategory);
-		if (category === 'all') {
-			displayMenuItems(menu);
-		}
-	});
+window.addEventListener('DOMContentLoaded', function () {
+	displayMenuItems(menu);
+	displayButtons();
 });
 
 // Muestra los items en la página
@@ -108,5 +107,56 @@ function displayMenuItems(menuItems) {
 	});
 
 	displayMenu = displayMenu.join('');
+
+	// Agrega el contenido html de displayMenu
+	// al elemento con la clase .section-center (sectionCenter)
 	sectionCenter.innerHTML = displayMenu;
+}
+
+// Muestra los botones en la página
+function displayButtons() {
+	// Obtiene un Array de la propiedad category (en menu) sin duplicados
+	const categories = menu.reduce(
+		// (values es el array que devuelvo)
+		// (item es cada elemento del array menu)
+		(values, item) => {
+			if (!values.includes(item.category)) {
+				values.push(item.category);
+			}
+			return values;
+		},
+		['all']
+	);
+
+	// Agrega contenido html
+	// por cada elemento de categories
+	// al elemento con la clase .btn-container (buttonContainer)
+	const categoryBtn = categories
+		.map(function (category) {
+			return `<button class="filter-btn" type="button" data-id="${category}">${category}</button>`;
+		})
+		.join('');
+	buttonContainer.innerHTML = categoryBtn;
+
+	// Selecciona todos los elementos con la clase .filter-btn
+	// (Recordar: Cuando se agregan elementos dinámicamente,
+	// estos se deben seleccionar después que carga el Dom)
+	const filterBtns = document.querySelectorAll('.filter-btn');
+
+	// Filtra elementos
+	filterBtns.forEach(function (button) {
+		button.addEventListener('click', function (e) {
+			// Almacena el data-id del botón presionado
+			const category = e.currentTarget.dataset.id;
+			const filterCategory = menu.filter((x) => x.category === category);
+			// Lanza la función displayMenuItems
+			// sólo con la categoría dentro de category
+			displayMenuItems(filterCategory);
+			// Si el data-id del botón es 'all'
+			// muestra todo el menú
+			if (category === 'all') {
+				displayMenuItems(menu);
+			}
+		});
+	});
 }
