@@ -1,7 +1,3 @@
-//* Este proyecto se puede hacer mediante 2 métodos:
-//* Using selectors inside the element or Traversing the DOM
-
-//* Primer método: Using selectors inside the element
 const questions = document.querySelectorAll('.question');
 
 questions.forEach((question) => {
@@ -20,17 +16,3 @@ questions.forEach((question) => {
 		question.classList.toggle('show-text');
 	});
 });
-
-//* Segundo método: Traversing the DOM
-// const btns = document.querySelectorAll('.question-btn');
-
-// // Agrega un event listener a cada elemento con la clase question-btn
-// btns.forEach((button) =>
-// 	button.addEventListener('click', function (element) {
-// 		const question = element.currentTarget.parentElement.parentElement;
-
-// 		console.log(question);
-
-// 		question.classList.toggle('show-text');
-// 	})
-// );
